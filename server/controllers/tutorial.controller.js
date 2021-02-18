@@ -7,7 +7,8 @@ const getPagination = (page, size) => {
     const offset = page ? page * limit : 0;
 
     return {limit, offset};
-}
+};
+
 const getPagingData = (data, page, limit) => {
     const { count: totalItem, rows: tutorials } = data;
     const currentPage = page ? +page : 0;
@@ -53,16 +54,15 @@ exports.create = (req, res) => {
     if(!req.body.title) {
         res.status(400).send({
             message: "content can not be empty"
-        })
+        });
+        res.end();
     }
-
-    const {title, desc, pub} = req.body
 
     const tutorial = {
         title,
         desc,
         pub
-    }
+    };
 
     Tutorial.create(tutorial)
         .then(data => {
@@ -86,10 +86,12 @@ exports.findOne = (req, res) => {
         message: "Error retrieving Tutorial with id=" + id
       });
     });
-}
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;
+
+    console.log(req.body);
   
     Tutorial.update(req.body, {
       where: { id: id }

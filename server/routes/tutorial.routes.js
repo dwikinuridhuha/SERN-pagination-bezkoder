@@ -4,11 +4,12 @@ module.exports = app => {
     let router = require("express").Router();
 
     router.get("/", tutorials.findAll);
+    router.post("/", tutorials.create);
     router.get("/pub", tutorials.findAllPublished);
 
     router.get("/:id", tutorials.findOne);
     router.put("/:id", tutorials.update);
-    router.put("/:id", tutorials.delete);
+    router.delete("/:id", tutorials.delete);
 
     app.use("/api/tutorials", router);
-}
+};
